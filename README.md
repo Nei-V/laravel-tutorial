@@ -37,3 +37,9 @@ new-item -ItemType File -Name database/database.sqlite
 error when adding when registering new user ---> because we edited the file .env (to use sqlite) the php server ahs to be restarted
 
 in order to apply changes in front end we have to run "npm run dev" (if we make changes in other folders than public I think, or if we make changes to sass files)
+
+By mistake I deleted the models for users and password reset, so this is what you have to do get them back (customize these afterwards):
+
+https://stackoverflow.com/a/53257402
+
+if you get error that class exists, delete old migration files

@@ -17,4 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/p/create', 'PostsController@create'); //the routes are created following https://laravel.com/docs/5.1/controllers#restful-resource-controllers
+
 Route::get('/profile/{user}', 'ProfilesController@index')->name('profile.show');
