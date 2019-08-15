@@ -16,9 +16,9 @@
                 <div class="pr-5"><strong>200</strong> followers</div>
                 <div class="pr-5"><strong>40</strong> following</div>
             </div>
-            <div class="font-weight-bold pt-4">Instagram Clone</div>
-            <div>A clone of Instagram freeCodeCamp page made after a tutorial. This clone is made by </div>
-            <div><a href="https://www.ionvarsescu.tk">Ion Varsescu</a></div>
+            <div class="font-weight-bold pt-4">{{$user->profile->title}}</div>
+            <div>{{$user->profile->description}}</div>
+            <div><a href="{{$user->profile->url}}">Ion Varsescu {{$user->profile->url ?? N/A}}</a></div> <!--will show N/A if no url exists-->
         </div>
     </div>
     <div class="row pt-10">

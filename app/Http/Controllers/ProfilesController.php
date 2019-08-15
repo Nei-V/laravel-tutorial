@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ProfilesController extends Controller
 {
     public function index($user) {
-        $user = \App\User::find($user);
+        $user = \App\User::findOrFail($user); //using "findOrFail" instead of just "find" shows correct error page if no user is found (404)
         // dd(\App\User::find($user)); --for debugging
         return view('home',['user' => $user]);
     }
