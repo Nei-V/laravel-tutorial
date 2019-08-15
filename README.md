@@ -50,3 +50,16 @@ to solve this in laravel:
 we add at the beginning of our form this:
 @csrf
 this creats a long key(a hidden element inside the form) so that it knows we used our server to send the form
+
+-------
+if we get this error when submitting a form:  MassAssignmentException   - it means we have to turn of guarding in laravel:
+so in the model (for example Post model in this example) we override the protected "guarded" field with an empty array
+we can do that because in the Post we validate each filed separately.
+----
+if we get an error when submitting a form: integrity constraint violation - it means we didn't connect the models (the post to the user in this example)
+this happens here because we let people post even if they are not logged in, so there is no user_id, therefore we have to add this
+through relationship, so we use the auth() in the controller to do that (in the example in the PostsController). 
+----
+
+you have to run the command "php artisan storage:link" once in the life of the project to make the local storage directory public
+(can be seen at domain/storage/uploads/filename.jpg)
