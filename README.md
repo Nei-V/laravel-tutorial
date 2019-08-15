@@ -43,3 +43,10 @@ By mistake I deleted the models for users and password reset, so this is what yo
 https://stackoverflow.com/a/53257402
 
 if you get error that class exists, delete old migration files
+___________________________-
+
+if we get error 419 page expired when sending a form, it is a security measure (CSRF) so that only someone authorized can send forms (or enter an endpoint through curl)
+to solve this in laravel: 
+we add at the beginning of our form this:
+@csrf
+this creats a long key(a hidden element inside the form) so that it knows we used our server to send the form
