@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 /* use App\User; <---this imports the App namespace to later in the function you can write just "    User::...  " - so in all places where is written \App\User you could write just User */
-
+use Intervention\Image\Facades\Image
 
 class ProfilesController extends Controller
 {
@@ -38,9 +38,20 @@ class ProfilesController extends Controller
        // $user->profile->update($data);
 
         //the correct way is to allow only the authorized user to edit->we should use auth()
-        auth()->user()->profile->update($data);//this ignores what we get through the query
-        //this is in extra layer of protection - we  also have use permissions because otherwise any logged in user can change other user's profile/data
+        
+        
+        if (request('image')) {
+            $imagePath = request('image')->store('profile','public');
 
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000,1000);
+            $image->save();
+        }
+
+        auth()->user()->profile->update(array_merge(
+            $data,['image'=>$imagePath]
+        ));//this ignores what we get through the query
+        //this is in extra layer of protection - we  also have use permissions because otherwise any logged in user can change other user's profile/data
+        //we can't use "update($data) because we want in the image field in the data array to have $imagePath
         return redirect("/profile/{$user->id}");
     }
     

@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+//the routes order is important - if you out the rout /p/{post} before /p/create, it will never reach /p/create, because /p/{post} is more general (contains a variable)
 Route::get('/p/create', 'PostsController@create'); //the routes are created following https://laravel.com/docs/5.1/controllers#restful-resource-controllers
 Route::post('/p', 'PostsController@store');
 Route::get('/p/{post}','PostsController@show');
