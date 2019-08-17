@@ -63,3 +63,15 @@ through relationship, so we use the auth() in the controller to do that (in the 
 
 you have to run the command "php artisan storage:link" once in the life of the project to make the local storage directory public
 (can be seen at domain/storage/uploads/filename.jpg)
+
+----
+we added this package to resize images
+$ composer require intervention/image
+and then use it like this:
+use Intervention\Image\Facades\Image;
+in the controller for example (when we store the images)
+can also create thumbnails
+
+There might be an error that GD library is needed for image processing, in win10, in php.ini file, this line shuould not be commented out:
+extension=gd2
+afterwards, restart the server

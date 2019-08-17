@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Intervention\Image\Facades\Image;
 class PostsController extends Controller
 
 {
@@ -50,6 +51,13 @@ if we have fields that didn't need validation, they will be ignored (because the
 //you have to run the command "php artisan storage:link" once in the life of the project to make this directory public
 $imagePath = request('image')->store('uploads','public');
 
+//the Image class comes from the Intervention package for image manipulation that we installed and are importing in this file.
+//we want to make all images square
+//we are using fit method in Intervention that gets two argument (the width and height) - this cuts the image to this size
+//we have also the method "resize", that resizes the image but doesn't cut it
+$image = Image::make(public_path("storage/{$imagePath}"))->fit(1200, 1200);
+$image->save();
+
 //auth()->user()->posts()->create($data);  --we can't use $data because we want to use $imagePath
 
 auth()->user()->posts()->create([
@@ -60,5 +68,26 @@ auth()->user()->posts()->create([
         //dd(request()->all());
 
         return redirect('/profile/' . auth()->user()->id);
+    }
+
+    public function show(\App\Post $post){ //Laravel knows to look for the $post in the Post model because both here and in the web.php route we use the same variable $post
+        //Laravel also adds graceful fail when we do this - use the same variable.
+
+      // dd( $post);
+
+   /*    return view('posts.show', [
+          'post' => $post,
+      ]);  */
+
+      //same as :
+        return view('posts.show', compact('post')); //because is like in the show argument - also "post"
+
+       
+        /* $data=request();
+
+        auth()->user()->post()->show([
+            'image'=>$data['image'],
+            'caption'=>$data['caption'],
+        ]); */
     }
 }
