@@ -10,10 +10,16 @@
         <div class="col-9 pt-5">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h1>{{ $user->username}}</h1>
+
+                @can('update',$user->profile)<!--we'll show the Add post link only to the user that can also update his profile, user2 can't update user1's profile, therefore ha can't see on user1's profile page the Add post link-->
                 <a href="/p/create">Add new post</a>
-                
+                @endcan
             </div>
+            <!-- this Blade directive allows us to use the authorization from the policy, only if true will we show what's inside-->
+            @can ('update',$user->profile)
             <a href="/profile/{{$user->id}}/edit">Edit profile</a>
+            @endcan
+
             <div class="d-flex">
                 <div class="pr-5"><strong>{{$user->posts->count()}}</strong> posts</div>
                 <div class="pr-5"><strong>200</strong> followers</div>
