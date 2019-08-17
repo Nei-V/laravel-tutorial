@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 /* use App\User; <---this imports the App namespace to later in the function you can write just "    User::...  " - so in all places where is written \App\User you could write just User */
-use Intervention\Image\Facades\Image
+use Intervention\Image\Facades\Image;
 
 class ProfilesController extends Controller
 {
