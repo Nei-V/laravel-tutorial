@@ -45,10 +45,12 @@ class ProfilesController extends Controller
 
             $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000,1000);
             $image->save();
+            $imageArray = ['image'=>$imagePath];
         }
 
         auth()->user()->profile->update(array_merge(
-            $data,['image'=>$imagePath]
+            $data,
+            $imageArray ?? [],   //this way, if there is no image, the old image wil remain, otherwise, if the user updates the  profile with no image, it will remove the old image.
         ));//this ignores what we get through the query
         //this is in extra layer of protection - we  also have use permissions because otherwise any logged in user can change other user's profile/data
         //we can't use "update($data) because we want in the image field in the data array to have $imagePath
