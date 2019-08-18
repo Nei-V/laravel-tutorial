@@ -32,7 +32,12 @@
                 axios.post('/follow/' + this.userId)   //at first we hardcode the route ("axios.post('/follow/1')") just to check it works
                     .then(response=>{
                     this.status = !this.status;
-                    console.log(response.data)}); //we can return alert(response.data) or console.log(response.data) for testing
+                    console.log(response.data)})  //we can return alert(response.data) or console.log(response.data) for testing
+                    .catch(errors => {
+                        if(errors.response.status ==401) {   //if the error is of authorization type, send the user to login page
+                            window.location='/login'
+                        }
+                    });
             }
         }
     }

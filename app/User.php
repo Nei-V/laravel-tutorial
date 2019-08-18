@@ -46,8 +46,13 @@ class User extends Authenticatable
             $user->profile()->create([
                 'title'=>$user->username,  //we make this default: title of the profile will be the username 
             ]);
+        //we hook into create user to send an email when someone registers just after it completes the profile
+        //we use https://mailtrap.io - just for testing
+
+
         });
 
+       
 
     }
 

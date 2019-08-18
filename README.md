@@ -90,3 +90,15 @@ $table->unsignedBigInteger('profile_id');
             $table->unsignedBigInteger('user_id');
 ), we run the command
 php artisan migrate
+
+---
+
+after you install telescope, you have to run "php artisan migrate"
+
+---
+this kind of error means that there are more columns with the same name in your database
+ ambiguous column name: user_id   (in this case we have user_id in many tables)
+---
+
+in the .env file is the setup for email sending
+

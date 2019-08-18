@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Post;
 use Intervention\Image\Facades\Image;
 class PostsController extends Controller
 
@@ -12,6 +12,18 @@ class PostsController extends Controller
     //we use this middleware so that all other routs in this controller require authorization
     public function __construct() {
         $this->middleware('auth');
+    }
+
+    public function index(){
+        //we want to grab all the users we are following. We do: authenticated users, everybody you are following, give me only their users' ID that's in the profiles table.
+        $users = auth()->user()->following()->pluck('profiles.user_id');    //we want the user_id column in the profiles table
+        
+        $posts = Post::whereIn('user_id', $users)->with('user')->orderBy('created_at', 'DESC')->paginate(5);//it will give us the posts
+        //orderBy('created_at', 'DESC') can be replaced with "latest()" to retrive posts in descending order(last one first)
+        //if we use get() instead of paginate() we will get all the posts - no pagination
+        //we added "with('user')" (this is the same "user" that appears in the Post model and is requested when in the posts/index file {{ $post->user->id}} ) because we want all the users to be loaded, not each time one, so there is only a single request for each pagination, not 5 (can be seen in telescope)
+        //dd($posts);
+        return view('posts.index', compact('posts')); 
     }
 
     public function create(){

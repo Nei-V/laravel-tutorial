@@ -1870,7 +1870,13 @@ __webpack_require__.r(__webpack_exports__);
       .then(function (response) {
         _this.status = !_this.status;
         console.log(response.data);
-      }); //we can return alert(response.data) or console.log(response.data) for testing
+      }) //we can return alert(response.data) or console.log(response.data) for testing
+      ["catch"](function (errors) {
+        if (errors.response.status == 401) {
+          //if the error is of authorization type, send the user to login page
+          window.location = '/login';
+        }
+      });
     }
   }
 });

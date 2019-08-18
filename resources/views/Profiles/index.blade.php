@@ -23,9 +23,16 @@
             @endcan
 
             <div class="d-flex">
+                {{-- We want to refactor these lines because we want to use the cache in laravel - we decided that we want to update the numbers only once in every 30 seconds
+                    that is why we moved this logic in the ProfilesController
                 <div class="pr-5"><strong>{{$user->posts->count()}}</strong> posts</div>
-                <div class="pr-5"><strong>400</strong> followers</div>
-                <div class="pr-5"><strong>40</strong> following</div>
+                <div class="pr-5"><strong>{{$user->profile->followers->count()}}</strong> followers</div>
+                <div class="pr-5"><strong>{{$user->following->count()}}</strong> following</div>
+
+ --}}
+                <div class="pr-5"><strong>{{ $postCount }}</strong> posts</div>
+                <div class="pr-5"><strong>{{ $followersCount }}</strong> followers</div>
+                <div class="pr-5"><strong>{{ $followingCount }}</strong> following</div>
             </div>
             <div class="font-weight-bold pt-4">{{$user->profile->title}}</div>
             <div>{{$user->profile->description}}</div>

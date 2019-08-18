@@ -7,6 +7,11 @@ use App\User;
 
 class FollowsController extends Controller
 {
+//we add this middleware because only the authenticated users should have the possibilty to follow - otherwise the following() in the store method will return null
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function store(User $user){
        // return $user->username;   <-just for testing
        
