@@ -9,8 +9,10 @@
         </div>
         <div class="col-9 pt-5">
             <div class="d-flex justify-content-between align-items-baseline">
-                <h1>{{ $user->username}}</h1>
-
+                <div class="d-flex align-items-center pb-3">
+                <div class="h4">{{ $user->username}}</div>
+                <follow-button user-Id="{{$user->id}}" follows="{{ $follows }}"></follow-button>  <!--this is a vue component, we are passing user_id as props to the component-->
+                </div>
                 @can('update',$user->profile)<!--we'll show the Add post link only to the user that can also update his profile, user2 can't update user1's profile, therefore ha can't see on user1's profile page the Add post link-->
                 <a href="/p/create">Add new post</a>
                 @endcan
@@ -22,7 +24,7 @@
 
             <div class="d-flex">
                 <div class="pr-5"><strong>{{$user->posts->count()}}</strong> posts</div>
-                <div class="pr-5"><strong>200</strong> followers</div>
+                <div class="pr-5"><strong>400</strong> followers</div>
                 <div class="pr-5"><strong>40</strong> following</div>
             </div>
             <div class="font-weight-bold pt-4">{{$user->profile->title}}</div>

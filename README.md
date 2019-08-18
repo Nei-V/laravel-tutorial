@@ -72,6 +72,21 @@ use Intervention\Image\Facades\Image;
 in the controller for example (when we store the images)
 can also create thumbnails
 
-There might be an error that GD library is needed for image processing, in win10, in php.ini file, this line shuould not be commented out:
+There might be an error that GD library is needed for image processing, in win10, in php.ini file, this line should not be commented out:
 extension=gd2
 afterwards, restart the server
+
+---
+when we have  many to many relation (one user can follow multiple users,and multiple users can follow one user) we want to use a pivot table. We don't need a model for that, only a migration. In laravel there is a naming convention for that (the part that comes after the --create modifier):
+the names of the tables should be:
+-in alphabetical order ("profile" then "user", not "user" then "profile")
+-in lowercase
+-with underscore between them
+we use this command:
+php artisan make:migration creates_profile_user_pivot_table --create profile_user
+
+after we add the fields we need in the migration file (in this case
+$table->unsignedBigInteger('profile_id');
+            $table->unsignedBigInteger('user_id');
+), we run the command
+php artisan migrate

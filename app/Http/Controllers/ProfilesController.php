@@ -1,21 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
 use Illuminate\Http\Request;
 /* use App\User; <---this imports the App namespace to later in the function you can write just "    User::...  " - so in all places where is written \App\User you could write just User */
 use Intervention\Image\Facades\Image;
 
 class ProfilesController extends Controller
 {
-    public function index($user) {
-        $user = \App\User::findOrFail($user); //using "findOrFail" instead of just "find" shows correct error page if no user is found (404)
+    public function index(User $user) {
+        //if the user is authenticated than grab the authenticated user get true if he follows the $user we get from the link, false if he is not following
+        $follows = (auth()->user()) ? auth()->user()->following->contains($user->id): false;
+        //dd($follows);
+        //$user = \App\User::findOrFail($user); //using "findOrFail" instead of just "find" shows correct error page if no user is found (404)
         // dd(\App\User::find($user)); --for debugging
-        return view('profiles/index',['user' => $user]);
+        //return view('profiles/index',['user' => $user]);
+        return view('profiles/index', compact('user','follows'));
     }
 
     /* public function edit($user) {
         $user = \App\User::findOrFail(@user);
+        $this->authorize('update', $user->profile);
         return view('profiles/edit',['user'=>$user]);
     } */
 
