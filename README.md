@@ -101,4 +101,8 @@ this kind of error means that there are more columns with the same name in your 
 ---
 
 in the .env file is the setup for email sending
+you can see the test email in mailtrap.io inbox
 
+---
+for every change in the .env file you have to start the php artisan serve again
+APP_NAME in the .env file can't contain whitespaces. that is also the place where the email template finds the app name (it's shown in the header of the email)

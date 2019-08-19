@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 }); */
 
-
+use App\Mail\NewUserWelcomeMail;
 
 Auth::routes();
 //the routes order is important - if you out the rout /p/{post} before /p/create, it will never reach /p/create, because /p/{post} is more general (contains a variable)
@@ -24,6 +24,12 @@ Auth::routes();
 /* Route::post('follow/{user}', function() {
     return ['success'];
 }) */;
+
+//temporary for viewing the email template:
+Route::get('/email', function () {
+    return new NewUserWelcomeMail;
+});
+
 Route::post('follow/{user}', 'FollowsController@store');
 
 Route::get('/','PostsController@index');//we want the homepage to bring all the latest posts from all users

@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Mail\NewUserWelcomeMail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -48,7 +50,7 @@ class User extends Authenticatable
             ]);
         //we hook into create user to send an email when someone registers just after it completes the profile
         //we use https://mailtrap.io - just for testing
-
+                Mail::to($user->email)->send(new NewUserWelcomeMail());
 
         });
 

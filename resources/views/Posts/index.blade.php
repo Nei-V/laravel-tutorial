@@ -2,6 +2,10 @@
 
 @section ('content')
 <div class="container">
+    <div class="d-flex flex-column align-items-center">
+    <h1>Your personal homepage</h1>
+    <p>Here you'll see the latest posts from other users you are following</p>
+    </div>
     @foreach($posts as $post)
     <div class="row">
         <div class="col-6 offset-3">
